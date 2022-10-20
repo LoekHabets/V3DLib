@@ -189,7 +189,7 @@ $(V3DLIB): $(LIB) $(MESA_LIB)
 	@ar rcs $@ $^
 
 $(MESA_LIB):
-	cd mesa && make compile
+	cd mesa && $(MAKE) compile
 
 
 # Rule for creating object files
