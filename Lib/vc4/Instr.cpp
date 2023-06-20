@@ -180,12 +180,12 @@ void Instr::tag(Tag in_tag, bool imm) {
 
     case END:
       m_sig = 3;
-      raddrb = 39;
+      m_raddrb = 39;
       break;
 
     case LDTMU:
       m_sig = 10;
-      raddrb = 39;
+      m_raddrb = 39;
       break;
 
     case SINC:
@@ -260,10 +260,10 @@ void Instr::encode_operands(RegOrImm const &srcA, RegOrImm const &srcB) {
     assert(false);  // Not expecting this
   }
 
-  raddra  = raddra;
-  raddrb  = raddrb;
-  muxa  = muxa;
-  muxb  = muxb;
+  m_raddra  = raddra;
+  m_raddrb  = raddrb;
+  m_muxa  = muxa;
+  m_muxb  = muxb;
 }
 
 
@@ -288,14 +288,14 @@ uint32_t Instr::low() const {
     case NOP:
       return  0;
     case ROT:
-      return (mulOp << 29) | (raddra << 18) | (raddrb << 12);
+      return (mulOp << 29) | (m_raddra << 18) | (m_raddrb << 12);
     case ALU:
-      return (mulOp << 29) | (addOp << 24) | (raddra << 18) | (raddrb << 12)
-           | (muxa << 9) | (muxb << 6)
-           | (muxa << 3) | muxb;
+      return (mulOp << 29) | (addOp << 24) | (m_raddra << 18) | (m_raddrb << 12)
+           | (m_muxa << 9) | (m_muxb << 6)
+           | (m_muxa << 3) | m_muxb;
     case END:
     case LDTMU:
-      return (raddra << 18) | (raddrb << 12);
+      return (m_raddra << 18) | (m_raddrb << 12);
     case LI:
     case BR:
       return li_imm;
@@ -368,7 +368,7 @@ void Instr::encode(V3DLib::Instr const &instr) {
 
         tag(Instr::ROT);
         mulOp  = ALUOp(ALUOp::M_V8MIN).vc4_encodeMulOp();
-        raddrb = raddrb;
+        m_raddrb = raddrb;
       } else {
         tag(Instr::ALU, instr.hasImm());
         mulOp = (alu.op.isMul() ? alu.op.vc4_encodeMulOp() : 0);

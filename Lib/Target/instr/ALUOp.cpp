@@ -73,7 +73,7 @@ uint32_t ALUOp::vc4_encodeAddOp() const {
 
 uint32_t ALUOp::vc4_encodeMulOp() const {
   if (m_value == NOP) return NOP;
-  if (isMul() && m_value != M_ROTATE) return m_value - M_FMUL; 
+  if (isMul() && m_value != M_ROTATE) return m_value - M_FMUL + 1; //Kinda ugly; TODO maybe add a MUL NOP base address so we can use that
 
   fatal("V3DLib: unknown MUL op");
   return 0;

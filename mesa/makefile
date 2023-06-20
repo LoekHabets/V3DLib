@@ -139,4 +139,4 @@ $(MAINDIR)/%.o: main/%.c
 
 $(BINDIR)/%: $(MAINDIR)/%.o $(MESA_LIB)
 	@echo Linking $@...
-	$(LINK) -L $(BINDIR) $(LIBS) $^ -o $@
+	$(LINK) -L $(BINDIR) $^ $(LIBS) -o $@

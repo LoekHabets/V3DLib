@@ -31,10 +31,10 @@ private:
 
   uint32_t addOp  = 0;
   uint32_t mulOp  = 0;
-  uint32_t muxa   = 0;
-  uint32_t muxb   = 0;
-  uint32_t raddra = 39;
-  uint32_t raddrb = 0;
+  uint32_t m_muxa   = 0;
+  uint32_t m_muxb   = 0;
+  uint32_t m_raddra = 39;
+  uint32_t m_raddrb = 0;
 
   uint32_t li_imm = 0;  // Also used as BR target
   uint32_t sema_id = 0;
